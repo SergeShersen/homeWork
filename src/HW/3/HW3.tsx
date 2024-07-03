@@ -1,4 +1,5 @@
 import { useState,ChangeEvent } from 'react';
+import { text } from 'stream/consumers';
 
 export const HW3 = () => {
   // 1️⃣ Раскомментируйте JSX(HW3.tsx) и вы увидите,
@@ -20,8 +21,11 @@ export const HW3 = () => {
      setCurrentText(event.currentTarget.value);
   };
 
-  const handleSave = () => {
-    setTexts(texts)
+  const handleSave = (text:string) => {
+    const newTexts =[text, ...texts]
+    setTexts(newTexts)
+    setCurrentText('')
+
     // ЗАСЕТАТЬ БЫ ТЕКСТ В texts И НЕ ПОТЕРЯТЬ НАПУТСТВИЕ ИЗ ПРОШЛОГО ВЕКА)
     // А ЗАТЕМ УБРАТЬ ЗА СОБОЙ В currentText
   };
@@ -29,14 +33,14 @@ export const HW3 = () => {
   return (
     <div id={'hw03'}>
       {currentText ? (
-       <h1 id={'hw03-text'}>ЗДЕСЬ ХОТЕЛОСЬ БЫ УВИДЕТЬ ВВОДИМЫЙ ТЕКСТ</h1>
+       <h1 id={'hw03-text'}>{currentText}</h1>
       ) : (
         <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1> // ничего не меняем, здесь все норм
       )}
 
       <input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} />
 
-      <button id={'hw03-button'} onClick={() => {handleSave()}}> 
+      <button id={'hw03-button'} onClick={() => {handleSave(currentText)}}> 
       Сохранить
       </button>
 
